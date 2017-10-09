@@ -16,7 +16,7 @@ import json
 api_endpoint = 'https://<endpoint>.rightscale.com/api/oauth2'
 
 #refresh token you gotta get from 'API Credentials' in the RightScale UI for whatever account you want to use
-my_refresh_token = "<refresh_token>"
+my_refresh_token = '<refresh_token>'
 
 #tell it what API version to use - need to use Cloud Management API to authenticate
 auth_headers =	{'X-API-Version': '1.5'}
@@ -25,7 +25,7 @@ auth_headers =	{'X-API-Version': '1.5'}
 auth_payload =	{
 	'grant_type': 'refresh_token',
 	'refresh_token': my_refresh_token
-					}
+				}
 
 #the API call - using POST
 auth_call = requests.post(url=api_endpoint, headers=auth_headers, data=auth_payload)
@@ -53,11 +53,11 @@ plugin_headers =	{
 
 #data in the APU call - as explained below in the JSON
 plugin_payload =	{
-	"account_href": "/api/accounts/123456",
-	"start_time": "2017-01-01T00:00:00+00:00",
-	"total_cost": "0.077",
-	"product": "Plugin Cost Product",
-  	"product_category": "Other"
+	'account_href': '/api/accounts/123456',
+	'start_time': '2017-01-01T00:00:00+00:00',
+	'total_cost': '0.077',
+	'product': 'Plugin Cost Product',
+  	'product_category': 'Other'
 					}
 
 #the API call - using POST
