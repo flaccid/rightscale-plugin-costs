@@ -12,11 +12,11 @@
 import requests
 import json
 
-#API endpoint to get the access token
-api_endpoint = 'https://<telstra-10/us-3/us-4>.rightscale.com/api/oauth2'
+#API endpoint to get the access token (choose one: 'telstra-10', 'us-3', or 'us-4')
+api_endpoint = 'https://<endpoint>.rightscale.com/api/oauth2'
 
 #refresh token you gotta get from 'API Credentials' in the RightScale UI for whatever account you want to use
-my_refresh_token = ""
+my_refresh_token = "<refresh_token>"
 
 #tell it what API version to use - need to use Cloud Management API to authenticate
 auth_headers =	{'X-API-Version': '1.5'}
