@@ -1,7 +1,12 @@
 #variables you might wanna edit are:
 #api_endpoint
 #my_refresh_token
-#index_url (add '/:id' eg '/246' to the end for a specifc plugin cost)
+#update_url (add '/:id' eg '/246' to the end to specify which cost plugin to update)
+#account_href
+#start_time
+#total_cost
+#product
+#product_category
 
 
 #import dependancies, libraries, etc, whatever they're called
@@ -24,7 +29,7 @@ auth_payload =	{
 				}
 
 #the API call - using POST
-auth_call = requests.post(url=api_endpoint, headers=auth_headers, data=auth_payload)
+auth_call = requests.post(url=api_endpoint, headers=auth_headers, json=auth_payload)
 
 #prints the response to the terminal so that you know if it worked or if you stuffed it (you want 200)
 print auth_call
@@ -35,21 +40,30 @@ resp_dict = json.loads(resp_str)
 
 access_token = resp_dict['access_token']
 
-#API endpoint to index/list the plugin costs
-index_url = 'https://analytics.rightscale.com/api/plugin_costs'
+#API endpoint to create the cost plugin
+update_url = 'https://analytics.rightscale.com/api/plugin_costs/123'
 
 #tell it that you want to use the access token that we got from above as the authorisation
 #the content will be JSON format
 #and the API version is 1.0 because it's the Cloud Analytics API
-index_headers =		{
+update_headers =	{
 	'Authorization': 'Bearer {0}'.format(access_token),
 	'Content-Type': 'application/json',
 	'X-API-VERSION': '1.0'
 					}
 
-#the API call - using GET
-index_call = requests.get(url=index_url, headers=index_headers)
+#data in the API call - as explained below in the JSON
+update_payload =	{
+	'account_href': '/api/accounts/123456',
+	'start_time': '2017-01-01T00:00:00+00:00',
+	'total_cost': '0.077',
+	'product': 'Plugin Cost Product',
+  	'product_category': 'Other'
+					}
+
+#the API call - using PATCH
+update_call = requests.patch(url=update_url, headers=update_headers, json=update_payload)
 
 #prints the response to the terminal so that you know if it worked or if you stuffed it (you want 200)
-print 'index_call response: ' + index_call.text
-print index_call
+print 'update_call response: ' + update_call.text
+print update_call

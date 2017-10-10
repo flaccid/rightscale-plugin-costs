@@ -30,8 +30,8 @@ auth_payload =	{
 #the API call - using POST
 auth_call = requests.post(url=api_endpoint, headers=auth_headers, data=auth_payload)
 
-#prints the response to the terminal so that you know if it worked or if you stuffed it
-print 'auth_call response: ' + auth_call.text
+#prints the response to the terminal so that you know if it worked or if you stuffed it (you want 200)
+print auth_call
 
 #now we gotta define what the 'access_token' is ie it's equal to the first part of the JSON response we got from above
 resp_str = auth_call.text

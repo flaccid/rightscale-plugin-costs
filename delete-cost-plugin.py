@@ -1,7 +1,7 @@
 #variables you might wanna edit are:
 #api_endpoint
 #my_refresh_token
-#index_url (add '/:id' eg '/246' to the end for a specifc plugin cost)
+#delete_url (add '/:id' eg '/246' to the end to specify which cost plugin to delete)
 
 
 #import dependancies, libraries, etc, whatever they're called
@@ -35,21 +35,20 @@ resp_dict = json.loads(resp_str)
 
 access_token = resp_dict['access_token']
 
-#API endpoint to index/list the plugin costs
-index_url = 'https://analytics.rightscale.com/api/plugin_costs'
+#API endpoint of the cost plugin you want to update
+delete_url = 'https://analytics.rightscale.com/api/plugin_costs/123'
 
 #tell it that you want to use the access token that we got from above as the authorisation
 #the content will be JSON format
 #and the API version is 1.0 because it's the Cloud Analytics API
-index_headers =		{
+delete_headers =	{
 	'Authorization': 'Bearer {0}'.format(access_token),
 	'Content-Type': 'application/json',
 	'X-API-VERSION': '1.0'
 					}
 
-#the API call - using GET
-index_call = requests.get(url=index_url, headers=index_headers)
+#the API call - using DELETE
+delete_call = requests.delete(url=delete_url, headers=delete_headers)
 
-#prints the response to the terminal so that you know if it worked or if you stuffed it (you want 200)
-print 'index_call response: ' + index_call.text
-print index_call
+#prints the response to the terminal so that you know if it worked or if you stuffed it (you want 204)
+print delete_call
