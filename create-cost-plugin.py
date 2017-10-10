@@ -51,7 +51,7 @@ plugin_headers =	{
 	'X-API-VERSION': '1.0'
 					}
 
-#data in the APU call - as explained below in the JSON
+#data in the API call - as explained below in the JSON
 plugin_payload =	{
 	'account_href': '/api/accounts/123456',
 	'start_time': '2017-01-01T00:00:00+00:00',
