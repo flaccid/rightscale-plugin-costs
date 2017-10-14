@@ -13,5 +13,7 @@ WORKDIR /home/dev/rl-overage
 # Move scripts into container
 COPY  . .
 
+ENTRYPOINT ["/home/dev/rl-overage/entrypoint.sh"] 
+
 # setup CRON to update plugin hourly
 # todo CRON
