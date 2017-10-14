@@ -1,14 +1,18 @@
 # Set base image
 FROM alpine
 
-# Install python, requests and json
+# Install dependencies
 RUN 	apk update
+RUN   apk upgrade
 RUN 	apk add python
 RUN		apk add py2-requests
-RUN 	apk add py-simplejson
+# RUN 	apk add py-simplejson
 
-# Create app directory
-WORKDIR /home/dev/rs-plugin-cost-scripts
+# Create working directory
+WORKDIR /home/dev/rl-overage
 
-# Move plugin cost scripts into container
+# Move scripts into container
 COPY . .
+
+# setup CRON to update plugin hourly
+#todo CRON
