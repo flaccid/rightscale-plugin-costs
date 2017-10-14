@@ -10,7 +10,7 @@ import os
 
 rs_acc_parent = os.environ['parent_acc']
 auth_endpoint = 'https://us-4.rightscale.com/api/oauth2'
-rate = 0.035
+rate = os.environ['rl_rate']
 
 #works out date range for this month
 now = datetime.datetime.now()
@@ -57,7 +57,7 @@ usage_payload = 	{
 	'start_time': month_start,
 	'end_time': end_time,
 	'instance_filters': instance_filters
-					}	
+					}
 
 print('Getting usage...')
 usage_call = requests.post(url=usage_url, headers=usage_headers, json=usage_payload)
@@ -101,7 +101,7 @@ index_output = json.loads(index_call.text)
 month_now = index_output[0].get("start_time", "")[:-18]
 
 #if no plugin costs exists it creates one for you
-if len(index_output) == 0: 
+if len(index_output) == 0:
 
 	print('No existing plugin cost found - creating one...')
 
@@ -159,7 +159,7 @@ elif month_now == end_time[:-12]:
 		else:
 			print('Something went wrong...')
 
-#if plugin costs exist, but not for this month, it creates one for you 
+#if plugin costs exist, but not for this month, it creates one for you
 else:
 
 	print('No plugin cost found for this month - creating one...')
