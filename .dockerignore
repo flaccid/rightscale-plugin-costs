@@ -1,3 +1,8 @@
 Dockerfile
 LICENSE
 README.md
+.git
+create-cost-plugin.py
+delete-cost-plugin.py
+show-cost-plugin.py
+update-cost-plugin.py
