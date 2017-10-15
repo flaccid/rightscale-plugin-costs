@@ -19,7 +19,7 @@ if os.path.isdir("/run/secrets") == True:
 
 	print("Secrets directory exists, importing variables...")
 
-	parent_acc="$(cat /run/secrets/parent_acc)"
+	parent_acc="/api/account/$(cat /run/secrets/parent_acc)"
 	refresh_token="$(cat /run/secrets/refresh_token)"
 	rl_rate="$(cat /run/secrets/rl_rate)"
 
