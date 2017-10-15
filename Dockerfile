@@ -1,18 +1,11 @@
-# Set base image
-FROM  alpine
 
-# Install dependencies
-RUN apk update
-RUN apk upgrade
-RUN apk add python
-RUN apk add py2-requests
+FROM alpine
 
-# Create working directory
-WORKDIR /home/dev/rl-overage
+RUN apk update && \
+    apk add --no-cache --upgrade \
+      python \
+      py2-requests
 
-# Move files into container working directory
-COPY  . .
+COPY . /usr/local/rightscale-plugin-costs
 
-#RUN ["chmod", "+x", "/home/dev/rl-overage/entrypoint.sh"]
-
-# to do setup CRON to update plugin hourly
+CMD ["crond", "-l", "2", "-f"]
