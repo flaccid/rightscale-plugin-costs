@@ -19,9 +19,17 @@ if os.path.isdir("/run/secrets") == True:
 
 	print("Secrets directory exists, importing variables...")
 
-	parent_acc="/api/account/$(cat /run/secrets/parent_acc)"
-	refresh_token="$(cat /run/secrets/refresh_token)"
-	rl_rate="$(cat /run/secrets/rl_rate)"
+	parent_acc_open = open("/run/secrets/parent_acc")
+	parent_acc = "/api/accounts/" + parent_acc_open.read()
+	parent_acc_open.close()
+
+	refresh_token_open = open("/run/secrets/refresh_token")
+	refresh_token = refresh_token_open.read()
+	refresh_token_open.close()
+
+	rl_rate_open = open("/run/secrets/rl_rate")
+	rl_rate = rl_rate_open.read()
+	rl_rate_open.close()
 
 elif os.path.isdir("/run/secrets") == False:
 
