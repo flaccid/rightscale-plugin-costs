@@ -10,9 +10,9 @@ RUN apk add py2-requests
 # Create working directory
 WORKDIR /home/dev/rl-overage
 
-# Move scripts into container
+# Move files into container working directory
 COPY  . .
 
-RUN ["chmod", "+x", "/home/dev/rl-overage/entrypoint.sh"]
+#RUN ["chmod", "+x", "/home/dev/rl-overage/entrypoint.sh"]
 
 # todo setup CRON to update plugin hourly
