@@ -54,7 +54,7 @@ if auth_call.status_code == 200:
 	print('Success!')
 else:
 	print('Something went wrong...')
-	print(update_call.text)
+	print(auth_call.text)
 
 auth_output = json.loads(auth_call.text)
 access_token = auth_output['access_token']
@@ -89,7 +89,7 @@ if usage_call.status_code == 200:
 	print('Success!')
 else:
 	print('Something went wrong...')
-	print(update_call.text)
+	print(usage_call.text)
 
 usage_output = json.loads(usage_call.text)
 usage_list = [d['total_usage_hours'] for d in usage_output]
@@ -120,7 +120,7 @@ if index_call.status_code == 200:
 	print('Success!')
 else:
 	print('Something went wrong...')
-	print(update_call.text)
+	print(index_call.text)
 
 index_output = json.loads(index_call.text)
 month_now = index_output[0].get("start_time", "")[:-18]
@@ -152,7 +152,7 @@ if len(index_output) == 0:
 		print('Created new plugin cost')
 	else:
 		print('Something went wrong...')
-		print(update_call.text)
+		print(plugin_call.text)
 
 #if a plugin cost already exists for this month it will update it
 elif month_now == end_time[:-12]:
@@ -213,3 +213,4 @@ else:
 		print('Created new plugin cost for this month')
 	else:
 		print('Something went wrong...')
+		print(plugin_call.text)
