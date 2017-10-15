@@ -1,47 +1,35 @@
+#!/usr/bin/env python2
+
 import requests
 import json
 import datetime
 import os
 
-#add your RightScale details as environment variables: 'parent_acc', 'refresh_token', 'shard', 'rl_rate'
-#your parent account ID is in the URL when you're viewing that account in the RightScale UI
+#add your RightScale details as environment variables:
+# RS_REFRESH_TOKEN
+# RS_SERVER
+# RS_ACCOUNT_ID
+# RIGHTLINK_RATE
+
+#your account ID is in the URL when you're viewing that account in the RightScale UI
 #get your refresh token from the RightScale UI under "API Credentials"
 #your shard will be either us-3, us-4 or telstra-10
 #your overage rate must be in USD eg 0.05
 
 #checks if you're using Rancher Secrets
 #when using Rancher, please set the shard as an environment variable in the Rancher UI
-
-auth_endpoint = 'https://' + os.environ['shard'] + '.rightscale.com/api/oauth2'
-
 print("Checking if you're using Rancher Secrets...")
-if os.path.isdir("/run/secrets") == True:
-
+if os.path.isdir("/run/secrets"):
 	print("Secrets directory exists, importing variables...")
+	os.environ['RS_ACCOUNT_ID'] = open('/run/secrets/RS_ACCOUNT_ID', 'r').read()
+	os.environ['RS_SERVER'] = open('/run/secrets/RS_SERVER', 'r').read()
+	os.environ['RS_REFRESH_TOKEN'] = open('/run/secrets/RS_REFRESH_TOKEN', 'r').read()
+	os.environ['RIGHTLINK_RATE'] = open('/run/secrets/RIGHTLINK_RATE', 'r').read()
 
-	parent_acc_open = open("/run/secrets/parent_acc")
-	parent_acc = "/api/accounts/" + parent_acc_open.read()
-	parent_acc_open.close()
-
-	refresh_token_open = open("/run/secrets/refresh_token")
-	refresh_token = refresh_token_open.read()
-	refresh_token_open.close()
-
-	rl_rate_open = open("/run/secrets/rl_rate")
-	rl_rate = rl_rate_open.read()
-	rl_rate_open.close()
-
-elif os.path.isdir("/run/secrets") == False:
-
-	print("Can't find Secrets directory, attempting to use environment variables...")
-
-	parent_acc = "/api/accounts/" + os.environ['parent_acc']
-	refresh_token = os.environ['refresh_token']
-	rl_rate = os.environ['rl_rate']
-
-else:
-
-	print("Something went wrong, have you set your environment variables?")
+auth_endpoint = 'https://' + os.environ['RS_SERVER'] + '/api/oauth2'
+parent_acc = "/api/accounts/" + os.environ['RS_ACCOUNT_ID']
+refresh_token = os.environ['RS_REFRESH_TOKEN']
+rl_rate = os.environ['RIGHTLINK_RATE']
 
 #works out date range for this month
 now = datetime.datetime.now()
