@@ -10,6 +10,7 @@ import os
 #your overage rate must be in USD eg 0.05
 
 #checks if you're using Rancher Secrets
+#when using Rancher, please set the shard as an environment variable in the Rancher UI
 print("Checking if you're using Rancher Secrets...")
 if os.path.isdir("/run/secrets") == True:
 
@@ -17,6 +18,7 @@ if os.path.isdir("/run/secrets") == True:
 
 	parent_acc="$(cat /run/secrets/parent_acc)"
 	refresh_token="$(cat /run/secrets/refresh_token)"
+	auth_endpoint = 'https://' + shard + '.rightscale.com/api/oauth2'
 	rl_rate="$(cat /run/secrets/rl_rate)"
 
 elif os.path.isdir("/run/secrets") == False:
