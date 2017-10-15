@@ -3,14 +3,11 @@ import json
 import datetime
 import os
 
-#add your RightScale details as environment variables: 'parent_acc', 'refresh_token', 'shard', 'rl_rate'
-#your shard will be either: us-3, us-4 or telstra-10
-#choose your overage rate in USD eg 0.05
-
-parent_acc = "/api/accounts/" + os.environ['parent_acc']
-refresh_token = os.environ['refresh_token']
-auth_endpoint = 'https://' + os.environ['shard'] + '.rightscale.com/api/oauth2'
-rl_rate = os.environ['rl_rate']
+#add your RightScale details as environment variables: 'parent_acc', 'refresh_token', 'rl_rate'
+#your parent account ID is in the URL when you're viewing that account in the RightScale UI
+#get your refresh token from the RightScale UI under "API Credentials"
+#your shard will be either us-3, us-4 or telstra-10
+#your overage rate must be in USD eg 0.05
 
 #checks if you're using Rancher Secrets
 print("Checking if you're using Rancher Secrets...")
@@ -20,7 +17,6 @@ if os.path.isdir("/run/secrets") == True:
 
 	parent_acc="$(cat /run/secrets/parent_acc)"
 	refresh_token="$(cat /run/secrets/refresh_token)"
-	auth_endpoint = "https://" + "$(cat /run/secrets/shard)" + ".rightscale.com/api/oauth2"
 	rl_rate="$(cat /run/secrets/rl_rate)"
 
 elif os.path.isdir("/run/secrets") == False:
