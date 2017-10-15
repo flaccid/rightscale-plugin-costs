@@ -15,4 +15,4 @@ COPY  . .
 
 #RUN ["chmod", "+x", "/home/dev/rl-overage/entrypoint.sh"]
 
-# todo setup CRON to update plugin hourly
+# to do setup CRON to update plugin hourly
